@@ -4,7 +4,7 @@ public class PasswordChecker {
 
     public static String checkStrength(String password) {
         if (password.length() < 8) {
-            return "Weak: password is too short";
+            return "Weak";
         }
 
         boolean hasUpper = false;
@@ -32,9 +32,22 @@ public class PasswordChecker {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
-        System.out.println(checkStrength(password));
+
+        while (true) {
+            System.out.print("Enter password: ");
+            String password = scanner.nextLine();
+
+            String strength = checkStrength(password);
+            System.out.println("Strength: " + strength);
+
+            if (!strength.equals("Weak")) {
+                break;
+            }
+
+            System.out.println("Password too weak. Try again.\n");
+        }
+
+        System.out.println("Password accepted.");
         scanner.close();
     }
 }
