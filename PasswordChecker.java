@@ -2,32 +2,34 @@ import java.util.Scanner;
 
 public class PasswordChecker {
 
-    public static String checkStrength(String password) {
-        if (password.length() < 8) {
-            return "Weak";
-        }
-
-        boolean hasUpper = false;
-        boolean hasLower = false;
-        boolean hasDigit = false;
-        boolean hasSpecial = false;
-
-        for (char c : password.toCharArray()) {
-            if (Character.isUpperCase(c)) hasUpper = true;
-            else if (Character.isLowerCase(c)) hasLower = true;
-            else if (Character.isDigit(c)) hasDigit = true;
-            else hasSpecial = true;
-        }
+    public static String getPasswordStrength(String password) {
+        if (password.length() < 8) return "Weak";
 
         int score = 0;
-        if (hasUpper) score++;
-        if (hasLower) score++;
-        if (hasDigit) score++;
-        if (hasSpecial) score++;
+        if (hasUpperCase(password)) score++;
+        if (hasLowerCase(password)) score++;
+        if (hasDigit(password)) score++;
+        if (hasSpecialChar(password)) score++;
 
         if (score <= 1) return "Weak";
-        else if (score == 2) return "Medium";
-        else return "Strong";
+        if (score == 2) return "Medium";
+        return "Strong";
+    }
+
+    private static boolean hasUpperCase(String s) {
+        return s.chars().anyMatch(Character::isUpperCase);
+    }
+
+    private static boolean hasLowerCase(String s) {
+        return s.chars().anyMatch(Character::isLowerCase);
+    }
+
+    private static boolean hasDigit(String s) {
+        return s.chars().anyMatch(Character::isDigit);
+    }
+
+    private static boolean hasSpecialChar(String s) {
+        return s.chars().anyMatch(c -> !Character.isLetterOrDigit(c));
     }
 
     public static void main(String[] args) {
@@ -37,12 +39,15 @@ public class PasswordChecker {
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
 
-            String strength = checkStrength(password);
+            if (password.trim().isEmpty()) {
+                System.out.println("Password cannot be empty.\n");
+                continue;
+            }
+
+            String strength = getPasswordStrength(password);
             System.out.println("Strength: " + strength);
 
-            if (!strength.equals("Weak")) {
-                break;
-            }
+            if (!strength.equals("Weak")) break;
 
             System.out.println("Password too weak. Try again.\n");
         }
