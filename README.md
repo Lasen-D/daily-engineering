@@ -1,19 +1,22 @@
-# daily-engineering
+# Daily Engineering
 
-A daily practice repo to build consistency, skills, improve problem-solving skills, and real projects.
+A daily coding practice repository focused on consistency, clean code,
+and building small but practical Java utilities.
 
 ## Projects
 
 ### 🔐 Password Checker (Java)
-A simple command-line tool written in Java that evaluates password strength.
+A command-line tool that evaluates password strength and forces retries
+until the password meets acceptable criteria.
 
 **Features**
-- Minimum length check
-- Uppercase & lowercase detection
-- Digit detection
-- Special character detection
-- Strength rating: Weak / Medium / Strong
+- Minimum length validation
+- Uppercase, lowercase, digit, and special character checks
+- Retry loop for weak passwords
+- Clean, refactored code structure
 
-**How to Run**
+**Run**
 javac PasswordChecker.java
 java PasswordChecker
+
+
